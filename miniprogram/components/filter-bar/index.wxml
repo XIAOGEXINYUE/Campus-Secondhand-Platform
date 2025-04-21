@@ -1,0 +1,60 @@
+<!-- components/filter-bar/index.wxml -->
+<view class="filter-bar">
+  <view class="filter-tab {{showFilterPanel ? 'active' : ''}}" bindtap="toggleFilterPanel">
+    <text>筛选</text>
+    <view class="tab-icon">
+      <view class="icon-triangle {{showFilterPanel ? 'up' : 'down'}}"></view>
+    </view>
+  </view>
+  <view class="filter-tab {{showSortPanel ? 'active' : ''}}" bindtap="toggleSortPanel">
+    <text>排序</text>
+    <view class="tab-icon">
+      <view class="icon-triangle {{showSortPanel ? 'up' : 'down'}}"></view>
+    </view>
+  </view>
+</view>
+
+<!-- 筛选面板 -->
+<view class="filter-panel" wx:if="{{showFilterPanel}}">
+  <view class="filter-content">
+    <block wx:for="{{filters}}" wx:key="id">
+      <view class="filter-section">
+        <view class="filter-title">{{item.name}}</view>
+        <view class="filter-options">
+          <view 
+            class="filter-option {{tempFilters[item.id] === option.id ? 'active' : ''}}" 
+            wx:for="{{item.options}}" 
+            wx:for-item="option" 
+            wx:key="id"
+            data-filter-id="{{item.id}}"
+            data-option-id="{{option.id}}"
+            bindtap="selectFilterOption"
+          >
+            {{option.name}}
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="filter-actions">
+    <view class="reset-btn" bindtap="resetFilters">重置</view>
+    <view class="confirm-btn" bindtap="applyFilters">确定</view>
+  </view>
+</view>
+
+<!-- 排序面板 -->
+<view class="sort-panel" wx:if="{{showSortPanel}}">
+  <view 
+    class="sort-option {{currentSortId === item.id ? 'active' : ''}}" 
+    wx:for="{{sortOptions}}" 
+    wx:key="id"
+    data-id="{{item.id}}"
+    bindtap="selectSort"
+  >
+    <text>{{item.name}}</text>
+    <icon wx:if="{{currentSortId === item.id}}" type="success" size="16" color="#ff6700"></icon>
+  </view>
+</view>
+
+<!-- 遮罩层 -->
+<view class="mask" wx:if="{{showFilterPanel || showSortPanel}}" bindtap="closePanel"></view>

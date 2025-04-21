@@ -1,0 +1,19 @@
+<!-- components/search-bar/index.wxml -->
+<view class="search-bar">
+  <view class="search-box" bindtap="onTap">
+    <icon class="search-icon" type="search" size="16"></icon>
+    <input 
+      class="search-input" 
+      placeholder="{{placeholder}}" 
+      placeholder-class="placeholder" 
+      value="{{inputValue}}"
+      focus="{{focus}}"
+      bindinput="onInput"
+      bindconfirm="onSearch"
+    />
+    <view class="clear-icon" wx:if="{{inputValue.length > 0}}" catchtap="onClear">
+      <icon type="clear" size="16" color="#999999"></icon>
+    </view>
+  </view>
+  <view class="cancel-btn" wx:if="{{showCancel}}" bindtap="onCancel">取消</view>
+</view>

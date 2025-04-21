@@ -1,0 +1,291 @@
+/* pages/book-detail/index.wxss */
+.app-container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+  margin-top: 30px; /* 适配微信小程序状态栏 */
+}
+
+/* 导航栏 */
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 88rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30rpx;
+  z-index: 100;
+  margin-top: 60px; /* 增加顶部间距，避免被状态栏遮挡 */
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+}
+
+.back-button {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 新的返回箭头样式 */
+.back-arrow {
+  width: 36rpx;
+  height: 36rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-line {
+  position: relative;
+  width: 20rpx;
+  height: 20rpx;
+  border-left: 3rpx solid #333;
+  border-bottom: 3rpx solid #333;
+  transform: rotate(45deg);
+}
+
+.icon-back:before {
+  content: "\e697";
+  font-family: "iconfont";
+  font-size: 36rpx;
+  color: #333;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.right-actions {
+  display: flex;
+  align-items: center;
+}
+
+.share-button {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-share:before {
+  content: "\e6f3";
+  font-family: "iconfont";
+  font-size: 36rpx;
+  color: #333;
+}
+
+/* 图片画廊 */
+.image-gallery {
+  height: 600rpx;
+  background-color: #f0f0f0;
+  margin-top: 148rpx; /* 调整顶部间距，与导航栏保持一致 */
+}
+
+.image-gallery swiper {
+  height: 100%;
+}
+
+.book-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 书籍基本信息 */
+.book-info {
+  background-color: #fff;
+  padding: 30rpx;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.transaction-badge {
+  display: inline-block;
+  font-size: 24rpx;
+  color: #3498db;
+  background-color: rgba(52, 152, 219, 0.1);
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+  margin-bottom: 10rpx;
+}
+
+.book-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.book-price {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.like-button {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 添加新的 SVG 图标样式 */
+.like-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.book-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+
+.tag {
+  font-size: 24rpx;
+  color: #666;
+  background-color: #f5f5f5;
+  padding: 8rpx 16rpx;
+  border-radius: 4rpx;
+  margin-right: 16rpx;
+  margin-bottom: 10rpx;
+}
+
+/* 书籍详情 */
+.book-details {
+  background-color: #fff;
+  padding: 30rpx;
+  margin-top: 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 160rpx 1fr;
+  row-gap: 20rpx;
+}
+
+.detail-label {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 卖家信息 */
+.seller-info {
+  background-color: #fff;
+  padding: 30rpx;
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seller-profile {
+  display: flex;
+  align-items: center;
+}
+
+.seller-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.seller-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.seller-school {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.view-profile {
+  font-size: 26rpx;
+  color: #ff6b6b;
+}
+
+/* 详细描述 */
+.description {
+  background-color: #fff;
+  padding: 30rpx;
+  margin-top: 20rpx;
+  margin-bottom: 120rpx;
+}
+
+.description-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-top: 1rpx solid #eee;
+  z-index: 100;
+}
+
+.contact-button {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.icon-message:before {
+  content: "\e78a";
+  font-family: "iconfont";
+  font-size: 32rpx;
+  margin-right: 8rpx;
+}
+
+.buy-button {
+  flex: 1;
+  height: 100%;
+  background-color: #ff6b6b;
+  color: #fff;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

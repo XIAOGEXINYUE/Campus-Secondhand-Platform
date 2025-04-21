@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "empty-state": "/components/empty-state/index",
+    "loading": "/components/loading/index"
+  },
+  "navigationBarBackgroundColor": "#f5f5f5",
+  "navigationBarTitleText": "我的"
+}

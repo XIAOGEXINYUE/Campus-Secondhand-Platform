@@ -1,0 +1,107 @@
+/**message/index.wxss**/
+@import '../../styles/global.wxss';
+
+/* 导航栏样式覆盖 */
+.nav-bar {
+  position: relative;
+}
+
+.message-list {
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.message-item {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  background-color: #ffffff;
+}
+
+.avatar-container {
+  position: relative;
+  margin-right: 20rpx;
+}
+
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.unread-badge {
+  position: absolute;
+  top: -6rpx;
+  right: -6rpx;
+  min-width: 36rpx;
+  height: 36rpx;
+  background-color: #ff6700;
+  color: #ffffff;
+  border-radius: 18rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22rpx;
+  padding: 0 6rpx;
+  box-sizing: border-box;
+}
+
+.message-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.last-message {
+  font-size: 26rpx;
+  color: #666666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 500rpx;
+}
+
+.more-icon image {
+  width: 36rpx;
+  height: 36rpx;
+}

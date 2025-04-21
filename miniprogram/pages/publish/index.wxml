@@ -1,0 +1,168 @@
+<!--pages/publish/index.wxml-->
+<view class="app-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="back-icon" bindtap="navigateBack">
+      <text class="back-icon-text">×</text>
+    </view>
+    <view class="title">发布二手书</view>
+  </view>
+  
+  <!-- 发布表单 -->
+  <view class="publish-form">
+    <!-- 书籍照片 -->
+    <view class="form-item">
+      <view class="form-label">
+        书籍照片 <text class="form-label-hint">(书籍照片必须有封面、背面)</text>
+      </view>
+      <view class="image-upload-container">
+        <view class="image-upload-item" wx:for="{{bookImages}}" wx:key="index">
+          <image class="image-preview" src="{{item}}" mode="aspectFill"></image>
+          <view class="remove-image" catchtap="removeImage" data-index="{{index}}">×</view>
+        </view>
+        <view class="image-upload-item image-upload-add" bindtap="chooseImage" wx:if="{{bookImages.length < 6}}">
+          <text class="plus-icon">+</text>
+        </view>
+        <view class="image-upload-item image-upload-add" wx:if="{{bookImages.length < 5}}">
+          <text class="plus-icon">+</text>
+        </view>
+        <view class="image-upload-item image-upload-add" wx:if="{{bookImages.length < 4}}">
+          <text class="plus-icon">+</text>
+        </view>
+        <view class="image-upload-item image-upload-add" wx:if="{{bookImages.length < 3}}">
+          <text class="plus-icon">+</text>
+        </view>
+        <view class="image-upload-item image-upload-add" wx:if="{{bookImages.length < 2}}">
+          <text class="plus-icon">+</text>
+        </view>
+        <view class="image-upload-item image-upload-add" wx:if="{{bookImages.length < 1}}">
+          <text class="plus-icon">+</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 书名 -->
+    <view class="form-item">
+      <view class="form-label">书名 <text class="required">*</text></view>
+      <input class="form-input" placeholder="请输入书籍全名" value="{{title}}" bindinput="onTitleInput" />
+    </view>
+    
+    <!-- 分类 -->
+    <view class="form-item">
+      <view class="form-label">分类 <text class="required">*</text></view>
+      <!-- 原生picker，保留但隐藏，用于兼容性 -->
+      <picker class="form-picker" mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategoryChange" style="display: none;">
+        <view class="picker-text">{{categoryIndex >= 0 ? categories[categoryIndex] : '请选择分类'}}</view>
+      </picker>
+      <!-- 自定义选择器触发区域 -->
+      <view class="form-picker" bindtap="showCategorySelector">
+        <view class="picker-text">{{categoryIndex >= 0 ? categories[categoryIndex] : '请选择分类'}}</view>
+      </view>
+    </view>
+    
+    <!-- 品相 -->
+    <view class="form-item">
+      <view class="form-label">品相 <text class="required">*</text></view>
+      <!-- 原生picker，保留但隐藏，用于兼容性 -->
+      <picker class="form-picker" mode="selector" range="{{conditions}}" value="{{conditionIndex}}" bindchange="onConditionChange" style="display: none;">
+        <view class="picker-text">{{conditionIndex >= 0 ? conditions[conditionIndex] : '请选择品相'}}</view>
+      </picker>
+      <!-- 自定义选择器触发区域 -->
+      <view class="form-picker" bindtap="showConditionSelector">
+        <view class="picker-text">{{conditionIndex >= 0 ? conditions[conditionIndex] : '请选择品相'}}</view>
+      </view>
+    </view>
+    
+    <!-- 交易方式 -->
+    <view class="form-item">
+      <view class="form-label">交易方式 <text class="required">*</text></view>
+      <view class="radio-group">
+        <view class="radio-item {{transactionMethod === '买家自取' ? 'radio-selected' : ''}}" bindtap="selectTransactionMethod" data-method="买家自取">
+          <view class="radio-dot {{transactionMethod === '买家自取' ? 'radio-dot-selected' : ''}}"></view>
+          <text class="radio-text">买家自取</text>
+        </view>
+        <view class="radio-item {{transactionMethod === '卖家包送' ? 'radio-selected' : ''}}" bindtap="selectTransactionMethod" data-method="卖家包送">
+          <view class="radio-dot {{transactionMethod === '卖家包送' ? 'radio-dot-selected' : ''}}"></view>
+          <text class="radio-text">卖家包送</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 价格 -->
+    <view class="form-item">
+      <view class="form-label">价格 <text class="required">*</text></view>
+      <view class="price-input-container">
+        <text class="price-symbol">¥</text>
+        <input class="price-input" type="digit" placeholder="0.00" value="{{price}}" bindinput="onPriceInput" />
+      </view>
+      <view class="price-hint">
+        <text class="hint-text">不高于原价的50%</text>
+      </view>
+    </view>
+    
+    <!-- 详细描述 -->
+    <view class="form-item">
+      <view class="form-label">详细描述</view>
+      <textarea class="form-textarea" placeholder="描述一下书籍的使用情况、是否有笔记或划线等" value="{{description}}" bindinput="onDescriptionInput"></textarea>
+    </view>
+    
+    <!-- 底部确认发布按钮 -->
+    <view class="confirm-publish-btn" bindtap="submitForm">确认发布</view>
+  </view>
+  
+  <!-- 自定义分类选择器 -->
+  <view class="custom-picker-mask" wx:if="{{showCategoryPicker}}" bindtap="hideCategorySelector"></view>
+  <view class="custom-picker-container" wx:if="{{showCategoryPicker}}">
+    <view class="custom-picker-header">
+      <view class="custom-picker-cancel" bindtap="hideCategorySelector">取消</view>
+      <view class="custom-picker-title">选择分类</view>
+      <view class="custom-picker-confirm" bindtap="hideCategorySelector">确定</view>
+    </view>
+    <view class="custom-picker-content">
+      <view class="custom-picker-item {{categoryIndex === index ? 'custom-picker-item-selected' : ''}}" 
+            wx:for="{{categories}}" 
+            wx:key="index" 
+            bindtap="selectCategory" 
+            data-index="{{index}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+  
+  <!-- 自定义品相选择器 -->
+  <view class="custom-picker-mask" wx:if="{{showConditionPicker}}" bindtap="hideConditionSelector"></view>
+  <view class="custom-picker-container" wx:if="{{showConditionPicker}}">
+    <view class="custom-picker-header">
+      <view class="custom-picker-cancel" bindtap="hideConditionSelector">取消</view>
+      <view class="custom-picker-title">选择品相</view>
+      <view class="custom-picker-confirm" bindtap="hideConditionSelector">确定</view>
+    </view>
+    <view class="custom-picker-content">
+      <view class="custom-picker-item {{conditionIndex === index ? 'custom-picker-item-selected' : ''}}" 
+            wx:for="{{conditions}}" 
+            wx:key="index" 
+            bindtap="selectCondition" 
+            data-index="{{index}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 发布成功 Modal -->
+<view class="modal-mask" wx:if="{{ showSuccessModal }}"></view>
+<view class="modal-container" wx:if="{{ showSuccessModal }}">
+  <view class="modal-content">
+    <view class="modal-icon-container">
+      <view class="modal-success-icon">
+        <view class="success-circle"></view>
+        <view class="success-tick"></view>
+      </view>
+    </view>
+    <view class="modal-title">发布成功！</view>
+    <view class="modal-actions">
+      <button class="modal-btn view-posts" bindtap="handleViewMyPosts">查看我的发布</button>
+      <button class="modal-btn publish-again" bindtap="handlePublishAgain">再发一本</button>
+    </view>
+  </view>
+</view>

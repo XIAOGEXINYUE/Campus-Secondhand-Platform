@@ -1,0 +1,54 @@
+<!--pages/image-manager/index.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">图片管理</view>
+    <view class="subtitle">上传和管理书籍封面图片</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">上传新图片</view>
+    <view class="upload-area" bindtap="chooseImage">
+      <view class="upload-icon">+</view>
+      <view class="upload-text">点击选择图片</view>
+    </view>
+    
+    <view class="button-area">
+      <button class="primary-button" bindtap="uploadSelectedImages" disabled="{{!selectedImages.length}}">
+        上传选中的图片 ({{selectedImages.length}})
+      </button>
+    </view>
+  </view>
+
+  <view class="section" wx:if="{{selectedImages.length > 0}}">
+    <view class="section-title">待上传图片 ({{selectedImages.length}})</view>
+    <view class="image-grid">
+      <view class="image-item" wx:for="{{selectedImages}}" wx:key="index">
+        <image src="{{item.path}}" mode="aspectFill"></image>
+        <view class="image-name">{{item.name}}</view>
+        <view class="image-actions">
+          <view class="action-button delete" catchtap="removeSelectedImage" data-index="{{index}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section" wx:if="{{uploadedImages.length > 0}}">
+    <view class="section-title">已上传图片 ({{uploadedImages.length}})</view>
+    <view class="image-grid">
+      <view class="image-item" wx:for="{{uploadedImages}}" wx:key="fileID">
+        <image src="{{item.url}}" mode="aspectFill"></image>
+        <view class="image-name">{{item.name}}</view>
+        <view class="image-actions">
+          <view class="action-button copy" catchtap="copyImageUrl" data-url="{{item.url}}">复制链接</view>
+          <view class="action-button delete" catchtap="deleteImage" data-id="{{item.fileID}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 上传进度 -->
+  <view class="upload-progress" wx:if="{{isUploading}}">
+    <view class="progress-text">正在上传 {{currentUploadIndex + 1}}/{{selectedImages.length}}</view>
+    <progress percent="{{uploadProgress}}" stroke-width="4" />
+  </view>
+</view>

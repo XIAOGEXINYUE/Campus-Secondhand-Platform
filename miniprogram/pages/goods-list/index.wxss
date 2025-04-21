@@ -1,0 +1,260 @@
+/**goods-list/index.wxss**/
+@import '../../styles/global.wxss';
+
+/* 调试信息样式 */
+.debug-info {
+  background-color: #f5f5f5;
+  padding: 10rpx 20rpx;
+  font-size: 24rpx;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.debug-info text {
+  margin: 4rpx 0;
+}
+
+/* 导航栏样式 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  padding: 0 30rpx;
+  background-color: #ffffff;
+  position: relative;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+
+.back-button {
+  margin-right: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-button image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  flex: 1;
+  text-align: center;
+  margin-right: 50rpx; /* 为了平衡左边的返回按钮 */
+}
+
+/* 书籍列表样式 */
+.book-listings {
+  padding: 20rpx 30rpx;
+  margin-bottom: 100rpx;
+}
+
+.books-grid {
+  width: 100%;
+}
+
+.books-row {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* 单列显示 */
+  gap: 30rpx;
+}
+
+/* 书籍卡片样式 */
+.book-card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  transform: translateY(0);
+  display: flex; /* 水平布局 */
+  margin-bottom: 20rpx;
+}
+
+.book-card:active {
+  transform: translateY(-6rpx);
+  box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.12);
+}
+
+.image-container {
+  position: relative;
+  width: 220rpx;
+  flex-shrink: 0;
+}
+
+.book-image {
+  width: 100%;
+  height: 240rpx;
+  object-fit: cover;
+  background-color: #eeeeee;
+  display: block;
+}
+
+.transaction-badge {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  padding: 4rpx 12rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  border-radius: 8rpx;
+  color: #ffffff;
+  line-height: 1.4;
+  z-index: 1;
+}
+
+.self-pickup-badge {
+  background-color: rgba(0, 122, 255, 0.9);
+}
+
+.delivery-badge {
+  background-color: rgba(52, 199, 89, 0.9);
+}
+
+.book-status {
+  position: absolute;
+  bottom: 12rpx;
+  left: 12rpx;
+  padding: 4rpx 12rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  border-radius: 8rpx;
+  color: #ffffff;
+  line-height: 1.4;
+  z-index: 1;
+}
+
+.status-sold {
+  background-color: rgba(120, 120, 128, 0.9); /* 灰色，表示已售出 */
+}
+
+.status-selling {
+  background-color: rgba(255, 103, 0, 0.9); /* 橙色，表示出售中 */
+}
+
+.book-info {
+  padding: 16rpx 20rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1c1c1e;
+  margin-bottom: 10rpx;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.book-category {
+  font-size: 24rpx;
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+}
+
+.category-text {
+  color: #8a8a8e;
+}
+
+.condition-text {
+  color: #ff6700;
+  font-weight: 500;
+}
+
+.book-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.book-price {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #ff3b30;
+}
+
+.book-meta-actions {
+  display: flex;
+  align-items: center;
+}
+
+.book-date {
+  font-size: 24rpx;
+  color: #8a8a8e;
+  margin-right: 10rpx;
+}
+
+/* 加载和空状态样式 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.loading-spinner {
+  width: 64rpx;
+  height: 64rpx;
+  border: 6rpx solid #f3f3f3;
+  border-top: 6rpx solid #ff6700;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #8a8a8e;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  width: 144rpx;
+  height: 144rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: #8a8a8e;
+  margin-bottom: 30rpx;
+}
+
+.empty-action {
+  background-color: #ff6700;
+  color: #ffffff;
+  font-size: 28rpx;
+  padding: 14rpx 40rpx;
+  border-radius: 30rpx;
+  font-weight: 500;
+} 

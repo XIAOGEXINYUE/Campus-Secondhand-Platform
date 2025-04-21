@@ -1,0 +1,37 @@
+<!--pages/message/index.wxml-->
+<view class="app-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="title">消息</view>
+    <view class="actions">
+      <view class="more-icon" bindtap="showMoreOptions">
+        <image src="../../images/icons/ellipsis.png" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 消息列表 -->
+  <view class="message-list">
+    <block wx:if="{{messages.length === 0}}">
+      <view class="empty-state">
+        <image class="empty-icon" src="../../images/icons/message.png" mode="aspectFit"></image>
+        <view class="empty-text">暂无消息</view>
+      </view>
+    </block>
+    <block wx:else>
+      <navigator url="../chat-detail/index?id={{item.id}}" class="message-item" wx:for="{{messages}}" wx:key="id">
+        <view class="avatar-container">
+          <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+          <view class="unread-badge" wx:if="{{item.unread > 0}}">{{item.unread}}</view>
+        </view>
+        <view class="message-content">
+          <view class="message-header">
+            <view class="name">{{item.name}}</view>
+            <view class="time">{{item.time}}</view>
+          </view>
+          <view class="last-message">{{item.lastMessage}}</view>
+        </view>
+      </navigator>
+    </block>
+  </view>
+</view>

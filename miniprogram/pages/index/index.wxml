@@ -1,0 +1,71 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 搜索框 -->
+  <view class="search-box" bindtap="navigateToSearch">
+    <view class="search-input-container">
+      <image class="search-icon" src="../../images/icons/search.svg"></image>
+      <view class="search-placeholder">搜索你想要的二手书</view>
+    </view>
+  </view>
+  
+  <!-- 轮播图 -->
+  <view class="swiper-container">
+    <swiper autoplay="{{true}}" interval="3000" circular="{{true}}" indicator-dots="{{true}}" indicator-active-color="#3A67F2">
+      <swiper-item wx:for="{{banners}}" wx:key="index">
+        <image src="{{item.image}}" mode="aspectFill" class="banner-image"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+  
+  <!-- 分类导航 -->
+  <view class="category-nav">
+    <view class="category-item" wx:for="{{categories}}" wx:key="name" bindtap="navigateToCategory" data-category="{{item.name}}">
+      <view class="category-icon">{{item.icon}}</view>
+      <view class="category-name">{{item.name}}</view>
+    </view>
+  </view>
+  
+  <!-- 推荐书籍 -->
+  <view class="recommended-books">
+    <view class="section-header">
+      <view class="section-title">推荐书籍</view>
+      <view class="view-more" bindtap="viewMoreBooks">查看更多</view>
+    </view>
+    
+    <view class="books-container">
+      <view class="book-card" wx:for="{{recommendedBooks}}" wx:key="id" bindtap="navigateToBookDetail" data-id="{{item._id || item.id}}">
+        <view class="book-image-container">
+          <image class="book-image" src="{{item.coverUrlLow || item.coverUrl}}" mode="aspectFill"></image>
+          <view class="book-badge">{{item.category}}</view>
+        </view>
+        <view class="book-info">
+          <view class="book-title">{{item.title}}</view>
+          <view class="book-price">¥{{item.price}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 近期上架 -->
+  <view class="recent-books">
+    <view class="section-header">
+      <view class="section-title">近期上架</view>
+      <view class="view-more" bindtap="viewMoreBooks">查看更多</view>
+    </view>
+    
+    <view class="books-container">
+      <view class="book-card" wx:for="{{recentBooks}}" wx:key="id" bindtap="navigateToBookDetail" data-id="{{item._id || item.id}}">
+        <view class="book-image-container">
+          <image class="book-image" src="{{item.coverUrlLow || item.coverUrl}}" mode="aspectFill"></image>
+          <view class="book-badge">{{item.category}}</view>
+        </view>
+        <view class="book-info">
+          <view class="book-title">{{item.title}}</view>
+          <view class="book-price">¥{{item.price}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 注意：不需要自定义底部导航栏，因为app.json中已经配置了tabBar -->

@@ -1,0 +1,108 @@
+<!-- pages/user-center/index.wxml -->
+<view class="app-container">
+  <!-- 个人信息头部 -->
+  <view class="profile-header" bindtap="handleLogin">
+    <block wx:if="{{isLoggedIn}}">
+      <view class="profile-info">
+        <image class="profile-avatar" src="{{userInfo.avatarUrl || '../../images/icons/avatar.svg'}}" mode="aspectFill" />
+        <view class="profile-details">
+          <view class="profile-name">{{userInfo.nickName || '微信用户'}}</view>
+          <view class="profile-major">{{userInfo.major || '点击完善信息'}}</view>
+        </view>
+      </view>
+      <view class="settings-icon" catchtap="navigateToSettings">
+        <image src="../../images/icons/settings.svg" mode="aspectFit"></image>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="profile-info">
+        <image class="profile-avatar" src="../../images/icons/avatar.svg" mode="aspectFill" />
+        <view class="profile-details">
+          <view class="profile-name login-prompt">点击登录</view>
+          <view class="profile-major login-prompt-sub">登录后体验更多功能</view>
+        </view>
+      </view>
+    </block>
+  </view>
+  
+  <!-- 功能按钮区域 -->
+  <view class="action-buttons">
+    <view class="action-item" bindtap="navigateToMyListings">
+      <view class="action-icon-container">
+        <image class="action-icon" src="../../images/icons/book.svg" mode="aspectFit"></image>
+      </view>
+      <view class="action-text">我的发布</view>
+    </view>
+    <view class="action-item" bindtap="navigateToMyOrders">
+      <view class="action-icon-container">
+        <image class="action-icon" src="../../images/icons/shopping-bag.svg" mode="aspectFit"></image>
+      </view>
+      <view class="action-text">我的订单</view>
+    </view>
+    <view class="action-item" bindtap="navigateToMyFavorites">
+      <view class="action-icon-container">
+        <image class="action-icon" src="../../images/icons/heart.svg" mode="aspectFit"></image>
+      </view>
+      <view class="action-text">我的收藏</view>
+    </view>
+    <view class="action-item" bindtap="navigateToMyWallet">
+      <view class="action-icon-container">
+        <image class="action-icon" src="../../images/icons/wallet.svg" mode="aspectFit"></image>
+      </view>
+      <view class="action-text">我的钱包</view>
+    </view>
+  </view>
+
+
+  
+  <!-- 我的发布列表 -->
+  <view class="my-listings-section">
+    <view class="section-header">
+      <view class="section-title">我的发布</view>
+      <view class="view-all" bindtap="navigateToMyListings">查看全部</view>
+    </view>
+    
+    <view class="book-list" wx:if="{{myListings.length > 0}}">
+      <view class="book-card" wx:for="{{myListings}}" wx:key="_id" data-id="{{item._id || item.id}}" bindtap="navigateToBookDetail">
+        <view class="image-container">
+          <image class="book-image" src="{{item.coverUrl}}" mode="aspectFill" binderror="onImageError" data-index="{{index}}"></image>
+          <view class="book-status {{item.status === '已售出' ? 'status-sold' : 'status-selling'}}">{{item.status}}</view>
+        </view>
+        <view class="book-info">
+          <view class="book-title">{{item.title}}</view>
+          <view class="book-category">
+            <text class="category-text">{{item.category || '未分类'}}</text>
+            <text> • </text>
+            <text class="condition-text">{{item.condition}}</text>
+          </view>
+          <view class="book-price-row">
+            <view class="book-price">¥{{item.price}}</view>
+            <view class="book-meta-actions">
+              <view class="book-date">{{item.date}}</view>
+              <view class="more-action-button" catchtap="showActionMenu" data-id="{{item._id || item.id}}" data-status="{{item.status}}">
+                <image class="more-icon" src="../../images/icons/more-horizontal.svg" mode="aspectFit"></image>
+              </view>
+            </view>
+          </view>
+
+          <view class="action-menu-popover" wx:if="{{showMenuForBookId === (item._id || item.id)}}">
+            <block wx:if="{{item.status !== '已售出'}}">
+              <view class="menu-item" catchtap="markAsSold" data-id="{{item._id || item.id}}">标记为已售</view>
+              <view class="menu-separator"></view>
+              <view class="menu-item menu-item-edit" catchtap="editPrice" data-id="{{item._id || item.id}}" data-price="{{item.price}}">修改价格</view>
+            </block>
+            <block wx:if="{{item.status === '已售出'}}">
+              <view class="menu-item" catchtap="relistItem" data-id="{{item._id || item.id}}">重新上架</view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="empty-state" wx:else>
+      <image class="empty-icon" src="../../images/icons/empty-box.svg" mode="aspectFit"></image>
+      <view class="empty-text">您还没有发布任何书籍</view>
+      <view class="empty-action" bindtap="navigateToPublish">立即发布</view>
+    </view>
+  </view>
+</view>

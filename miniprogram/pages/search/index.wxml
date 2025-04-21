@@ -1,0 +1,117 @@
+<!--pages/search/index.wxml-->
+<view class="app-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar-container">
+    <view class="search-bar">
+      <icon type="search" size="16" color="#999999"></icon>
+      <input class="search-input" placeholder="搜索书名、作者或课程" confirm-type="search" bindinput="onSearchInput" bindconfirm="onSearch" focus="{{true}}"/>
+    </view>
+  </view>
+  
+  <!-- 分类 -->
+  <view class="categories-container">
+    <view class="categories-grid">
+      <!-- 第一行 -->
+      <view class="category-item" bindtap="onCategoryTap" data-category="all">
+        <view class="category-icon">
+          <image src="/images/icons/book.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">全部</view>
+      </view>
+      <view class="category-item" bindtap="onCategoryTap" data-category="理工科">
+        <view class="category-icon">
+          <image src="/images/icons/calculator.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">理工科</view>
+      </view>
+      <view class="category-item" bindtap="onCategoryTap" data-category="文史类">
+        <view class="category-icon">
+          <image src="/images/icons/landmark.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">文史类</view>
+      </view>
+      <view class="category-item" bindtap="onCategoryTap" data-category="外语类">
+        <view class="category-icon">
+          <image src="/images/icons/language.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">外语类</view>
+      </view>
+      
+      <!-- 第二行 -->
+      <view class="category-item" bindtap="onCategoryTap" data-category="考研类">
+        <view class="category-icon">
+          <image src="/images/icons/graduation-cap.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">考研类</view>
+      </view>
+      <view class="category-item" bindtap="onCategoryTap" data-category="考公类">
+        <view class="category-icon">
+          <image src="/images/icons/gavel.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">考公类</view>
+      </view>
+      <view class="category-item" bindtap="onCategoryTap" data-category="经管类">
+        <view class="category-icon">
+          <image src="/images/icons/chart-line.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">经管类</view>
+      </view>
+      <view class="category-item" bindtap="onCategoryTap" data-category="其它">
+        <view class="category-icon">
+          <image src="/images/icons/ellipsis-h.svg" mode="aspectFit"></image>
+        </view>
+        <view class="category-name">其它</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 最近搜索 -->
+  <view class="search-section">
+    <view class="search-section-header">
+      <text class="search-section-title">最近搜索</text>
+      <text class="search-section-action" bindtap="clearRecentSearches">清除</text>
+    </view>
+    <view class="search-tags">
+      <view class="search-tag" wx:for="{{recentSearches}}" wx:key="index" bindtap="onTagTap" data-keyword="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+  
+  <!-- 热门搜索 -->
+  <view class="search-section">
+    <view class="search-section-header">
+      <text class="search-section-title">热门搜索</text>
+    </view>
+    <view class="search-tags">
+      <view class="search-tag" wx:for="{{hotSearches}}" wx:key="index" bindtap="onTagTap" data-keyword="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+  
+  <!-- 搜索结果（初始隐藏） -->
+  <view class="search-results" wx:if="{{showResults}}">
+    <view class="results-count">找到 {{resultsCount}} 本相关书籍</view>
+    <view class="book-grid">
+      <!-- 书籍卡片 -->
+      <view class="book-card" wx:for="{{searchResults}}" wx:key="id" bindtap="onBookTap" data-id="{{item.id}}">
+        <image class="book-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="book-info">
+          <view class="transaction-badge {{item.transactionMethod === '买家自取' ? 'self-pickup' : 'delivery'}}">
+            {{item.transactionMethod}}
+          </view>
+          <view class="book-title">{{item.title}}</view>
+          <view class="book-meta-info">{{item.category}} • {{item.condition}}</view>
+          <view class="book-price">¥{{item.price}}</view>
+          <view class="book-footer">
+            <view class="book-college">{{item.college}}</view>
+            <view class="like-button" catchtap="onLikeTap" data-id="{{item.id}}">
+              <image src="{{item.isLiked ? '/images/icons/heart-filled.svg' : '/images/icons/heart.svg'}}" mode="aspectFit"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,95 @@
+<!-- pages/settings/index.wxml -->
+<view class="app-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="back-icon" bindtap="navigateBack">
+      <text class="back-arrow">←</text>
+    </view>
+    <view class="title">设置</view>
+    <view class="placeholder"></view>
+  </view>
+  
+  <!-- 设置列表 -->
+  <view class="settings-list">
+    <view class="settings-item" bindtap="navigateToUserInfo">
+      <view class="settings-item-left">
+        <image class="settings-icon" src="../../images/icons/avatar.svg" mode="aspectFit"></image>
+        <view class="settings-label">个人资料</view>
+      </view>
+      <view class="arrow-icon">
+        <text>></text>
+      </view>
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToNotifications">
+      <view class="settings-item-left">
+        <image class="settings-icon" src="../../images/icons/message.png" mode="aspectFit"></image>
+        <view class="settings-label">消息通知</view>
+      </view>
+      <view class="arrow-icon">
+        <text>></text>
+      </view>
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToSecurity">
+      <view class="settings-item-left">
+        <image class="settings-icon" src="../../images/icons/settings.svg" mode="aspectFit"></image>
+        <view class="settings-label">账号安全</view>
+      </view>
+      <view class="arrow-icon">
+        <text>></text>
+      </view>
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToPayment">
+      <view class="settings-item-left">
+        <image class="settings-icon" src="../../images/icons/wallet.svg" mode="aspectFit"></image>
+        <view class="settings-label">支付管理</view>
+      </view>
+      <view class="arrow-icon">
+        <text>></text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="settings-list mt">
+    <view class="settings-item" bindtap="navigateToHelp">
+      <view class="settings-item-left">
+        <image class="settings-icon" src="../../images/icons/question.svg" mode="aspectFit"></image>
+        <view class="settings-label">帮助中心</view>
+      </view>
+      <view class="arrow-icon">
+        <text>></text>
+      </view>
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToAbout">
+      <view class="settings-item-left">
+        <image class="settings-icon" src="../../images/icons/customer-service.svg" mode="aspectFit"></image>
+        <view class="settings-label">关于我们</view>
+      </view>
+      <view class="arrow-icon">
+        <text>></text>
+      </view>
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToFeedback">
+      <view class="settings-item-left">
+        <image class="settings-icon" src="../../images/icons/share.svg" mode="aspectFit"></image>
+        <view class="settings-label">意见反馈</view>
+      </view>
+      <view class="arrow-icon">
+        <text>></text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="logout-button-container">
+    <button class="logout-button" bindtap="logout">退出登录</button>
+  </view>
+  
+  <view class="app-version">
+    <view>校园二手书交易小程序 {{version}}</view>
+    <view> 2025 All Rights Reserved</view>
+  </view>
+</view>

@@ -1,0 +1,148 @@
+<!--pages/search-results/index.wxml-->
+<view class="app-container">
+  <!-- 搜索头部 -->
+  <view class="nav-bar">
+    <view class="back-button" bindtap="navigateBack">
+      <view class="back-arrow">
+        <view class="arrow-line"></view>
+      </view>
+    </view>
+    <view class="search-bar-container">
+      <view class="search-bar">
+        <icon type="search" size="16" color="#999999"></icon>
+        <input class="search-input" value="{{searchKeyword}}" disabled bindtap="navigateToSearch"/>
+        <icon type="clear" size="16" color="#999999" bindtap="clearSearch" wx:if="{{searchKeyword}}"></icon>
+      </view>
+    </view>
+    <view class="more-button">
+      <image src="/images/icons/ellipsis-h.svg" mode="aspectFit"></image>
+    </view>
+  </view>
+  
+  <!-- 筛选选项 -->
+  <view class="filter-container">
+    <view class="filter-options">
+      <!-- 价格筛选 -->
+      <view class="filter-option">
+        <view class="filter-picker" bindtap="togglePriceFilter">
+          <text>{{priceFilterOptions[priceFilterIndex]}}</text>
+          <view class="select-arrow">▼</view>
+        </view>
+        <view class="dropdown-menu" wx:if="{{priceFilterVisible}}">
+          <view 
+            class="dropdown-item {{priceFilterIndex === index ? 'active' : ''}}" 
+            wx:for="{{priceFilterOptions}}" 
+            wx:key="index" 
+            bindtap="selectPriceFilter" 
+            data-index="{{index}}">
+            {{item}}
+          </view>
+        </view>
+      </view>
+      
+      <!-- 成色筛选 -->
+      <view class="filter-option">
+        <view class="filter-picker" bindtap="toggleConditionFilter">
+          <text>{{conditionFilterOptions[conditionFilterIndex]}}</text>
+          <view class="select-arrow">▼</view>
+        </view>
+        <view class="dropdown-menu" wx:if="{{conditionFilterVisible}}">
+          <view 
+            class="dropdown-item {{conditionFilterIndex === index ? 'active' : ''}}" 
+            wx:for="{{conditionFilterOptions}}" 
+            wx:key="index" 
+            bindtap="selectConditionFilter" 
+            data-index="{{index}}">
+            {{item}}
+          </view>
+        </view>
+      </view>
+      
+      <!-- 收货方式筛选 -->
+      <view class="filter-option">
+        <view class="filter-picker" bindtap="toggleDeliveryFilter">
+          <text>{{deliveryFilterOptions[deliveryFilterIndex]}}</text>
+          <view class="select-arrow">▼</view>
+        </view>
+        <view class="dropdown-menu" wx:if="{{deliveryFilterVisible}}">
+          <view 
+            class="dropdown-item {{deliveryFilterIndex === index ? 'active' : ''}}" 
+            wx:for="{{deliveryFilterOptions}}" 
+            wx:key="index" 
+            bindtap="selectDeliveryFilter" 
+            data-index="{{index}}">
+            {{item}}
+          </view>
+        </view>
+      </view>
+      
+      <!-- 校区筛选 -->
+      <view class="filter-option">
+        <view class="filter-picker" bindtap="toggleCampusFilter">
+          <text>{{campusFilterOptions[campusFilterIndex]}}</text>
+          <view class="select-arrow">▼</view>
+        </view>
+        <view class="dropdown-menu" wx:if="{{campusFilterVisible}}">
+          <view 
+            class="dropdown-item {{campusFilterIndex === index ? 'active' : ''}}" 
+            wx:for="{{campusFilterOptions}}" 
+            wx:key="index" 
+            bindtap="selectCampusFilter" 
+            data-index="{{index}}">
+            {{item}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 搜索结果 -->
+  <view class="search-results">
+    <!-- 搜索结果为空 -->
+    <block wx:if="{{searchResults.length === 0}}">
+      <view class="empty-result">
+        <view class="empty-image">
+          <!-- 替换为内联SVG图标，避免加载外部资源 -->
+          <view class="empty-svg">
+            <svg width="100" height="100" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- 盒子底部 -->
+              <rect x="40" y="120" width="120" height="40" rx="5" fill="#e0e0e0" stroke="#bdbdbd" stroke-width="2"/>
+              
+              <!-- 盒子主体 -->
+              <path d="M40 120 L60 80 H140 L160 120" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="2"/>
+              
+              <!-- 盒子打开的盖子 -->
+              <path d="M60 80 L40 60 H160 L140 80" fill="#fafafa" stroke="#bdbdbd" stroke-width="2"/>
+              
+              <!-- 盒子内部阴影 -->
+              <rect x="60" y="80" width="80" height="40" fill="#f0f0f0"/>
+              
+              <!-- 问号标志 -->
+              <text x="100" y="110" font-size="40" text-anchor="middle" fill="#9e9e9e">?</text>
+            </svg>
+          </view>
+        </view>
+        <view class="empty-text">暂无相关书籍</view>
+      </view>
+    </block>
+    <!-- 搜索结果列表 -->
+    <block wx:else>
+      <view class="search-results-list">
+        <view class="search-result-item" wx:for="{{searchResults}}" wx:key="id" bindtap="navigateToDetail" data-id="{{item._id || item.id}}">
+          <image class="book-image" src="{{item.coverUrl || item.image}}" mode="aspectFill" binderror="onImageError" data-index="{{index}}"></image>
+          <view class="book-info">
+            <view class="book-title">{{item.title}}</view>
+            <view class="book-meta-tags">
+              <view class="transaction-badge {{item.transactionMethod === '买家自取' ? 'self-pickup' : 'delivery'}}">
+                {{item.transactionMethod}}
+              </view>
+              <view class="tag category-tag">{{item.category}}</view>
+              <view class="tag condition-tag">{{item.condition}}</view>
+            </view>
+            <view class="book-price">¥{{item.price}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

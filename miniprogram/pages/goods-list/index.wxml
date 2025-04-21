@@ -1,0 +1,65 @@
+<!--pages/goods-list/index.wxml-->
+<view class="app-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="back-button" bindtap="navigateBack">
+      <image src="../../images/icons/arrow-left.svg" mode="aspectFit"></image>
+    </view>
+    <view class="title">我的发布</view>
+  </view>
+  
+  <!-- 书籍列表 - 增加调试信息显示 -->
+  <view class="debug-info">
+    <text>加载状态: {{loading ? '加载中' : '已加载'}}</text>
+    <text>是否为空: {{isEmpty ? '是' : '否'}}</text>
+    <text>书籍数量: {{books.length}}</text>
+  </view>
+  
+  <!-- 书籍列表 -->
+  <view class="book-listings">
+    <block wx:if="{{loading}}">
+      <view class="loading-container">
+        <view class="loading-spinner"></view>
+        <view class="loading-text">加载中...</view>
+      </view>
+    </block>
+    <block wx:elif="{{isEmpty}}">
+      <view class="empty-state">
+        <image class="empty-icon" src="../../images/icons/empty-box.svg" mode="aspectFit"></image>
+        <view class="empty-text">您还没有发布任何书籍</view>
+        <view class="empty-action" bindtap="navigateToPublish">立即发布</view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="books-grid">
+        <view class="books-row">
+          <block wx:for="{{books}}" wx:key="id">
+            <view class="book-card" bindtap="navigateToBookDetail" data-id="{{item._id || item.id}}">
+              <view class="image-container">
+                <image class="book-image" src="{{item.coverUrlLow || item.coverUrl}}" mode="aspectFill"></image>
+                <view class="transaction-badge {{item.transactionMethod === '买家自取' ? 'self-pickup-badge' : 'delivery-badge'}}">
+                  {{item.transactionMethod || '自取'}}
+                </view>
+                <view class="book-status {{item.status === '已售出' ? 'status-sold' : 'status-selling'}}">{{item.status}}</view>
+              </view>
+              <view class="book-info">
+                <view class="book-title">{{item.title}}</view>
+                <view class="book-category">
+                  <text class="category-text">{{item.category || '未分类'}}</text>
+                  <text> • </text>
+                  <text class="condition-text">{{item.condition}}</text>
+                </view>
+                <view class="book-price-row">
+                  <view class="book-price">¥{{item.price}}</view>
+                  <view class="book-meta-actions">
+                    <view class="book-date">{{item.date}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

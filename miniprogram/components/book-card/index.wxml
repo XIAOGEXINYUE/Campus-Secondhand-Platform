@@ -1,0 +1,18 @@
+<!-- components/book-card/index.wxml -->
+<view class="book-card" bindtap="onTapCard">
+  <image class="book-image" src="{{bookInfo.coverUrl || '../../images/default-goods-image.png'}}" mode="aspectFill"></image>
+  <view class="book-info">
+    <view class="transaction-badge {{bookInfo.transactionMethod === '买家自取' ? 'self-pickup' : 'seller-delivery'}}">
+      {{bookInfo.transactionMethod || '买家自取'}}
+    </view>
+    <view class="book-title">{{bookInfo.title || '书籍标题'}}</view>
+    <view class="book-meta">{{bookInfo.category || '未分类'}} · {{bookInfo.condition || '全新'}}</view>
+    <view class="book-price">¥{{bookInfo.price || '0.00'}}</view>
+    <view class="book-bottom">
+      <text class="department">{{bookInfo.college || '未知学院'}}</text>
+      <view class="like-btn" catchtap="toggleLike">
+        <image src="{{bookInfo.isLiked ? '../../images/icons/heart-filled.svg' : '../../images/icons/heart.svg'}}"></image>
+      </view>
+    </view>
+  </view>
+</view>

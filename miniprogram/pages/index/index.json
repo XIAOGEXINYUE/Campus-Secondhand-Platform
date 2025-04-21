@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "search-bar": "/components/search-bar/index",
+    "book-card": "/components/book-card/index",
+    "empty-state": "/components/empty-state/index",
+    "loading": "/components/loading/index"
+  },
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "校园二手书",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

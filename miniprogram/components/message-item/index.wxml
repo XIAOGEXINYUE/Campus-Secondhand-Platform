@@ -1,0 +1,16 @@
+<!-- components/message-item/index.wxml -->
+<view class="message-item" bindtap="onTapMessage">
+  <view class="avatar-container">
+    <image class="avatar" src="{{message.avatar || '../../images/default-avatar.png'}}" mode="aspectFill"></image>
+    <view class="badge" wx:if="{{message.unreadCount > 0}}">{{message.unreadCount > 99 ? '99+' : message.unreadCount}}</view>
+  </view>
+  <view class="message-content">
+    <view class="message-header">
+      <text class="username">{{message.username || '用户昵称'}}</text>
+      <text class="time">{{message.lastTime || '刚刚'}}</text>
+    </view>
+    <view class="message-body">
+      <text class="last-message">{{message.lastMessage || '暂无消息'}}</text>
+    </view>
+  </view>
+</view>

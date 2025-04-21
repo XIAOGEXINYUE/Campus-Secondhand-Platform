@@ -1,0 +1,7 @@
+<!-- components/loading/index.wxml -->
+<view class="loading {{fullScreen ? 'full-screen' : ''}}">
+  <view class="loading-spinner">
+    <view class="spinner"></view>
+  </view>
+  <view class="loading-text">{{text}}</view>
+</view>

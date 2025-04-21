@@ -1,0 +1,337 @@
+/**user-center/index.wxss**/
+@import '../../styles/global.wxss';
+
+/* 页面容器 */
+.app-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 120rpx; /* 为底部导航栏留出空间 */
+}
+
+/* 个人信息头部 */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #ff6700;
+  color: #ffffff;
+  position: relative;
+  height: 200rpx;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 30px; /* 适配微信小程序状态栏 */
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  margin-right: 20rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  background-color: #f0f0f0;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.profile-major {
+  font-size: 24rpx;
+  opacity: 0.8;
+}
+
+.settings-icon {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-icon image {
+  width: 100%;
+  height: 100%;
+  filter: brightness(0) invert(1);
+}
+
+/* 功能按钮区域 */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 40rpx 30rpx;
+  background-color: #ffffff;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-icon-container {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  background-color: #f0f7ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.action-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.action-text {
+  font-size: 26rpx;
+  color: #333333;
+}
+
+/* 我的发布列表 */
+.my-listings-section {
+  background-color: #ffffff;
+  padding: 30rpx;
+  margin-top: 20rpx;
+  box-sizing: border-box;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.view-all {
+  font-size: 26rpx;
+  color: #ff6700;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+/* 新的书籍卡片样式 */
+.book-card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  transform: translateY(0);
+}
+
+.book-card:active {
+  transform: translateY(-6rpx);
+  box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.12);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+}
+
+.book-image {
+  width: 100%;
+  height: 340rpx;
+  object-fit: cover;
+  background-color: #eeeeee;
+  display: block;
+}
+
+.book-status {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  padding: 4rpx 12rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  border-radius: 8rpx;
+  color: #ffffff;
+  background-color: rgba(255, 103, 0, 0.9);
+  line-height: 1.4;
+  z-index: 1;
+}
+
+.book-info {
+  padding: 16rpx 20rpx 20rpx;
+}
+
+.book-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1c1c1e;
+  margin-bottom: 10rpx;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.book-category {
+  font-size: 24rpx;
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+}
+
+.category-text {
+  color: #8a8a8e;
+}
+
+.condition-text {
+  color: #ff6700;
+  font-weight: 500;
+}
+
+.book-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-price {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #ff3b30;
+}
+
+.book-date {
+  font-size: 22rpx;
+  color: #8a8a8e;
+}
+
+/* Container for date and more button */
+.book-meta-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust date margin if needed */
+.book-date {
+  margin-right: 10rpx; /* Add some space between date and button */
+}
+
+/* More action button */
+.more-action-button {
+  padding: 5rpx; /* Make tap target slightly larger */
+  line-height: 0; /* Prevent extra space from image */
+}
+
+.more-icon {
+  width: 32rpx;
+  height: 32rpx;
+  color: #8a8a8e; /* Default icon color */
+  display: block;
+}
+
+/* Action Menu Popover */
+.action-menu-popover {
+  position: absolute;
+  right: 20rpx;
+  bottom: 70rpx; /* Position above the price row */
+  background-color: rgba(242, 242, 247, 0.95); /* Light gray with transparency */
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  padding: 8rpx 0;
+  z-index: 10;
+  min-width: 180rpx; /* Ensure sufficient width */
+  overflow: hidden; /* Clip corners */
+  backdrop-filter: blur(10px); /* iOS style blur */
+  -webkit-backdrop-filter: blur(10px); /* iOS style blur */
+}
+
+.menu-item {
+  padding: 18rpx 24rpx;
+  font-size: 28rpx;
+  color: #333333;
+  text-align: left;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.menu-item:active {
+  background-color: rgba(0, 0, 0, 0.05); /* Subtle tap highlight */
+}
+
+.menu-item-edit {
+  color: #007AFF; /* Blue for edit actions */
+}
+
+.menu-item-delete {
+  color: #FF3B30; /* Red for destructive actions */
+}
+
+.menu-separator {
+  height: 1px;
+  background-color: rgba(60, 60, 67, 0.29); /* System gray separator */
+  margin: 0 24rpx;
+}
+
+/* Status badge styles */
+.book-status.status-selling {
+  background-color: rgba(255, 103, 0, 0.9); /* Orange for selling */
+}
+
+.book-status.status-sold {
+  background-color: rgba(142, 142, 147, 0.9); /* Gray for sold */
+  color: #ffffff;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0;
+}
+
+.empty-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999999;
+  margin-bottom: 20rpx;
+}
+
+.empty-action {
+  font-size: 28rpx;
+  color: #ff6700;
+  padding: 10rpx 30rpx;
+}

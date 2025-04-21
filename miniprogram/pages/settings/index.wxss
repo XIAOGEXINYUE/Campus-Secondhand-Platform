@@ -1,0 +1,119 @@
+/**settings/index.wxss**/
+@import '../../styles/global.wxss';
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background-color: #ffffff;
+  position: relative;
+  border-bottom: 1rpx solid #f0f0f0;
+  margin-top: 60px; /* 向下调整整个页面 */
+}
+
+.back-icon {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-arrow {
+  font-size: 40rpx;
+  color: #666;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.placeholder {
+  width: 48rpx;
+}
+
+/* 设置列表 */
+.settings-list {
+  margin-top: 20rpx;
+  background-color: #ffffff;
+}
+
+.mt {
+  margin-top: 20rpx;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.settings-item-left {
+  display: flex;
+  align-items: center;
+}
+
+.settings-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 30rpx;
+  color: #666;
+}
+
+.settings-label {
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.arrow-icon {
+  color: #cccccc;
+  font-size: 32rpx;
+}
+
+.arrow-icon text {
+  color: #cccccc;
+}
+
+/* 退出登录按钮 */
+.logout-button-container {
+  padding: 40rpx 30rpx; /* 减少顶部内边距，使按钮往上移 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -20rpx; /* 进一步向上调整按钮位置 */
+}
+
+.logout-button {
+  width: 90%;
+  height: 88rpx;
+  line-height: 88rpx;
+  background-color: #ffffff;
+  color: #ff3b30;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 12rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  margin: 0 auto; /* 确保按钮水平居中 */
+}
+
+/* 版本信息 */
+.app-version {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+  padding: 30rpx 0 100rpx;
+}
+
+.app-version view {
+  margin-bottom: 10rpx;
+}

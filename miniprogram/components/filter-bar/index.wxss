@@ -1,0 +1,154 @@
+/* components/filter-bar/index.wxss */
+.filter-bar {
+  display: flex;
+  height: 88rpx;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: relative;
+  z-index: 10;
+}
+
+.filter-tab {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.filter-tab.active {
+  color: #ff6700;
+}
+
+.tab-icon {
+  margin-left: 8rpx;
+}
+
+.icon-triangle {
+  width: 0;
+  height: 0;
+  border-left: 10rpx solid transparent;
+  border-right: 10rpx solid transparent;
+}
+
+.icon-triangle.down {
+  border-top: 10rpx solid #999999;
+}
+
+.icon-triangle.up {
+  border-bottom: 10rpx solid #ff6700;
+}
+
+.filter-tab.active .icon-triangle.down {
+  border-top-color: #ff6700;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+.filter-panel {
+  position: absolute;
+  top: 88rpx;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  z-index: 10;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.filter-content {
+  padding: 20rpx 30rpx;
+}
+
+.filter-section {
+  margin-bottom: 30rpx;
+}
+
+.filter-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-option {
+  height: 60rpx;
+  padding: 0 24rpx;
+  background-color: #f5f5f5;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.filter-option.active {
+  background-color: #fff0e6;
+  color: #ff6700;
+  border: 1rpx solid #ff6700;
+}
+
+.filter-actions {
+  display: flex;
+  height: 100rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.reset-btn, .confirm-btn {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+}
+
+.reset-btn {
+  color: #666666;
+  background-color: #ffffff;
+}
+
+.confirm-btn {
+  color: #ffffff;
+  background-color: #ff6700;
+}
+
+.sort-panel {
+  position: absolute;
+  top: 88rpx;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  z-index: 10;
+}
+
+.sort-option {
+  height: 88rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  color: #333333;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.sort-option.active {
+  color: #ff6700;
+}

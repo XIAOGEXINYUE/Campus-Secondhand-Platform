@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVG to PNG Converter</title>
+    <style>
+        .icon-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="icon-container" id="container"></div>
+    <script>
+        const icons = [
+            'home.svg',
+            'home-active.svg',
+            'search.svg',
+            'plus.svg',
+            'message.svg',
+            'usercenter.svg',
+            'usercenter-active.svg'
+        ];
+
+        async function convertSVGtoPNG(svgFile) {
+            const response = await fetch(svgFile);
+            const svgText = await response.text();
+            
+            const img = new Image();
+            const svg = new Blob([svgText], {type: 'image/svg+xml;charset=utf-8'});
+            const url = URL.createObjectURL(svg);
+            
+            return new Promise((resolve, reject) => {
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 48;
+                    canvas.height = 48;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, 48, 48);
+                    
+                    const container = document.getElementById('container');
+                    const div = document.createElement('div');
+                    div.className = 'icon-item';
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = svgFile;
+                    
+                    div.appendChild(canvas);
+                    div.appendChild(nameSpan);
+                    container.appendChild(div);
+                    
+                    canvas.toBlob((blob) => {
+                        const pngUrl = URL.createObjectURL(blob);
+                        resolve(pngUrl);
+                    }, 'image/png');
+                };
+                img.onerror = reject;
+                img.src = url;
+            });
+        }
+
+        icons.forEach(icon => {
+            convertSVGtoPNG(icon);
+        });
+    </script>
+</body>
+</html> 

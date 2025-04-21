@@ -1,0 +1,93 @@
+<!-- pages/book-detail/index.wxml -->
+<view class="app-container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view bindtap="navigateBack" class="back-button">
+      <view class="back-arrow">
+        <view class="arrow-line"></view>
+      </view>
+    </view>
+    <view class="title">书籍详情</view>
+    <view class="right-actions">
+      <view class="share-button">
+        <text class="icon-share"></text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 书籍图片画廊 -->
+  <view class="image-gallery">
+    <swiper indicator-dots="{{bookImages.length > 1}}" 
+            indicator-active-color="#FFFFFF"
+            indicator-color="rgba(255, 255, 255, 0.5)"
+            circular="{{true}}"
+            autoplay="{{false}}">
+      <swiper-item wx:for="{{bookImages}}" wx:key="index">
+        <image src="{{item}}" mode="aspectFit" class="book-image"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+  
+  <!-- 书籍基本信息 -->
+  <view class="book-info">
+    <view class="info-header">
+      <view>
+        <view class="transaction-badge" wx:if="{{bookInfo.transactionMethod}}">{{bookInfo.transactionMethod}}</view>
+        <view class="book-title">{{bookInfo.title}}</view>
+        <view class="book-price">¥{{bookInfo.price}}</view>
+        <!-- 原价行已删除 -->
+      </view>
+      <view class="like-button" bindtap="toggleLike">
+        <image 
+          class="like-icon" 
+          src="{{ isLiked ? '../../images/icons/heart-filled.svg' : '../../images/icons/heart.svg' }}" 
+          mode="aspectFit"
+        ></image>
+      </view>
+    </view>
+    
+    <view class="book-tags">
+      <view class="tag" wx:if="{{bookInfo.category}}">{{bookInfo.category}}</view>
+      <view class="tag" wx:if="{{bookInfo.condition}}">{{bookInfo.condition}}</view>
+    </view>
+  </view>
+  
+  <!-- 书籍详情 -->
+  <view class="book-details">
+    <view class="section-title">书籍详情</view>
+    <view class="details-grid">
+      <!-- 只保留书名和品相 -->
+      <view class="detail-label">书名</view>
+      <view class="detail-value">{{bookInfo.title}}</view>
+      
+      <view class="detail-label">品相</view>
+      <view class="detail-value">{{bookInfo.condition}}</view>
+    </view>
+  </view>
+  
+  <!-- 卖家信息 -->
+  <view class="seller-info">
+    <view class="seller-profile" bindtap="viewSellerProfile">
+      <image class="seller-avatar" src="{{sellerInfo.avatarUrl || '/images/default-avatar.png'}}"></image>
+      <view class="seller-details">
+        <view class="seller-name">{{sellerInfo.nickName || '未知用户'}}</view>
+        <view class="seller-school" wx:if="{{sellerInfo.school}}">{{sellerInfo.school}} • {{sellerInfo.reputation || '信誉良好'}}</view>
+      </view>
+    </view>
+    <view class="view-profile" bindtap="viewSellerProfile">查看主页</view>
+  </view>
+  
+  <!-- 详细描述 -->
+  <view class="description" wx:if="{{bookInfo.description}}">
+    <view class="section-title">详细描述</view>
+    <text class="description-text">{{bookInfo.description}}</text>
+  </view>
+  
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="contact-button" bindtap="contactSeller">
+      <text class="icon-message"></text> 联系卖家
+    </view>
+    <view class="buy-button" bindtap="buyNow">立即购买</view>
+  </view>
+</view>

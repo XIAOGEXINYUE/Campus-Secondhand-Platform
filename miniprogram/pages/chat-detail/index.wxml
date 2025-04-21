@@ -1,0 +1,148 @@
+<!--pages/chat-detail/index.wxml-->
+<view class="app-container">
+
+  <!-- [重写] 导航栏: 结构简化 -->
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;"> 
+    <view class="nav-bar-content">
+      <!-- 返回按钮 -->
+      <view class="nav-action left" bindtap="navigateBack">
+        <image src="../../images/icons/arrow-left.svg" mode="aspectFit" class="nav-icon"></image>
+      </view>
+      <!-- 标题 -->
+      <view class="nav-title">{{chatInfo.name || '聊天详情'}}</view>
+      <!-- 右侧操作按钮 -->
+      <view class="nav-action right">
+        <view class="nav-button" bindtap="scrollToBottom">
+           <image src="../../images/icons/arrow-down.svg" mode="aspectFit" class="nav-icon"></image>
+        </view>
+        <view class="nav-button" bindtap="showMoreOptions">
+           <image src="../../images/icons/more.svg" mode="aspectFit" class="nav-icon"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 聊天内容区域: 增加上边距避开导航栏 -->
+  <scroll-view 
+    scroll-y 
+    class="chat-container" 
+    scroll-into-view="{{scrollToView}}" 
+    scroll-with-animation="{{true}}"
+    style="padding-top: {{navBarHeight}}px; padding-bottom: {{chatContainerPaddingBottom}}px;"
+    id="message-container-wrapper" 
+  >
+    <!-- 空白状态 -->
+    <block wx:if="{{messages.length === 0}}">
+      <view class="empty-state">
+        <image class="empty-icon" src="../../images/illustrations/empty-chat.svg" mode="aspectFit"></image>
+        <view class="empty-title">暂无消息</view>
+        <view class="empty-desc">开始与卖家沟通吧</view>
+      </view>
+    </block>
+    
+    <!-- 消息列表 -->
+    <block wx:else>
+      <view class="message-list" id="message-list-inner">
+        <!-- 日期分隔线 -->
+        <view class="date-divider">
+          <view class="date-line"></view>
+          <view class="date-text">今天 {{currentTime}}</view> 
+          <view class="date-line"></view>
+        </view>
+        
+        <!-- [重写] 消息项: 结构简化 -->
+        <view 
+          class="message-item {{item.isSelf ? 'self' : 'other'}}" 
+          wx:for="{{messages}}" 
+          wx:key="id"
+          id="msg-{{item.id}}" 
+        >
+          <!-- 消息主体内容 (头像和气泡/卡片) -->
+          <view class="message-body">
+            <!-- 头像 -->
+            <view class="avatar-wrapper">
+              <image 
+                class="avatar" 
+                src="{{item.isSelf ? userInfo.avatarUrl : (chatInfo.avatar || '../../images/default-avatar.png')}}" 
+                mode="aspectFill"
+              ></image>
+            </view>
+            
+            <!-- 气泡或卡片内容 -->
+            <view class="message-content">
+              <!-- 商品卡片 -->
+              <view wx:if="{{item.type === 'product'}}" class="product-message-card" bindtap="viewBookDetail" data-productid="{{item.content.id}}">
+                <image class="product-cover" src="{{item.content.image}}" mode="aspectFill"></image>
+                <view class="product-info">
+                  <view class="product-name">{{item.content.name}}</view>
+                  <view class="product-meta">
+                    <view class="product-price">¥{{item.content.price}}</view>
+                    <view class="product-status">在售</view>
+                  </view>
+                  <view class="product-action">
+                    <view class="product-view-btn">查看详情</view>
+                  </view>
+                </view>
+              </view>
+              
+              <!-- 文本气泡 -->
+              <view wx:else class="text-message-bubble">
+                <view class="message-text">{{item.content}}</view>
+              </view>
+            </view> 
+          </view> 
+          
+          <!-- 时间标签 (可选, 结构上移到外部或保留在内部均可) -->
+          <view class="message-time" wx:if="{{item.showTime}}">{{item.time}}</view>
+        </view> 
+      </view>
+    </block>
+    <!-- 用于滚动定位的空view -->
+    <view id="scroll-bottom-anchor"></view>
+  </scroll-view>
+
+  <!-- 底部区域 -->
+  <view class="bottom-area" id="bottom-area">
+    <!-- 商品上下文卡片 -->
+    <view class="product-context" wx:if="{{productContext}}">
+      <view class="product-context-inner">
+        <image class="product-context-image" src="{{productContext.image}}" mode="aspectFill"></image>
+        <view class="product-context-info">
+          <view class="product-context-name">{{productContext.name}}</view>
+          <view class="product-context-price">¥{{productContext.price}}</view>
+        </view>
+        <view class="product-context-actions">
+          <button class="send-link-btn" bindtap="sendProductLink">发送链接</button>
+          <view class="close-btn" bindtap="closeProductContext">
+            <image src="../../images/icons/close.png" mode="aspectFit"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 输入工具栏 -->
+    <view class="input-toolbar">
+      <view class="input-area">
+        <view class="input-wrapper">
+          <input 
+            class="message-input" 
+            placeholder="输入消息..." 
+            placeholder-class="input-placeholder"
+            value="{{inputValue}}" 
+            bindinput="inputChange" 
+            confirm-type="send" 
+            bindconfirm="sendMessage" 
+            adjust-position="{{false}}"
+            cursor-spacing="18"
+          />
+        </view>
+        <view class="input-actions">
+          <view class="send-button {{inputValue ? 'active' : ''}}" bindtap="sendMessage">
+            <image src="../../images/icons/send.svg" mode="aspectFit"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
